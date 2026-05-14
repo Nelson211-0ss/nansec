@@ -1,0 +1,110 @@
+<%- include('partials/head-open.html') %>
+<%- include('partials/nav.html') %>
+
+<main class="bg-zinc-50">
+  <%- include('partials/page-hero.html', { heroEyebrow: 'Training', heroTitle: title, heroLead: description, heroImage: siteImages.trainingLab, heroImageAlt: 'Instructor-led cybersecurity lab and skills development' }) %>
+
+  <section class="border-b border-red-100 bg-red-50 py-14 md:py-20">
+    <div class="container grid gap-8 md:grid-cols-12 md:items-center md:gap-10 md:py-2">
+      <div class="md:col-span-6 lg:col-span-5">
+        <div class="rounded-2xl border border-red-100/80 bg-white p-8 shadow-sm md:p-9">
+          <p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+            <i data-feather="link" class="h-4 w-4"></i>
+            Practice-linked curriculum
+          </p>
+          <h2 class="mt-3 text-2xl font-semibold tracking-tight text-zinc-900 md:text-3xl">Built by consultants who still run live programs</h2>
+          <p class="mt-4 text-sm leading-relaxed text-zinc-700 md:text-base">Labs use the same log formats, playbooks, and debrief patterns we apply on client work—so skills transfer to your tickets and war rooms, not just slide decks.</p>
+        </div>
+      </div>
+      <div class="md:col-span-6 lg:col-span-7">
+        <div class="overflow-hidden rounded-2xl border border-red-100/80 shadow-md ring-1 ring-red-100/50">
+          <img src="<%= siteImages.trainingLab %>" alt="Hands-on lab environment" class="aspect-video w-full object-cover object-center" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-b border-zinc-200 bg-white py-14">
+    <div class="container">
+      <div class="mx-auto mb-10 max-w-3xl text-center">
+        <p class="inline-flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500">
+          <i data-feather="gift" class="h-4 w-4 text-primary/80"></i>
+          What you get
+        </p>
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <% [{ k: "Instructors", v: "Consultants who split time between classrooms and customer engagements—less theory drift and more grounded scenarios.", icon: "users", bullets: ["Office hours during cohorts", "Optional capstone reviews"] },{ k: "Labs", v: "Shared sandboxes with realistic logs, detection pipelines, and facilitator debriefs tied to measurable objectives.", icon: "monitor", bullets: ["Branded playbooks you can adapt", "Capture-the-flag style checkpoints"] },{ k: "Outcomes", v: "Skills matrices you can hand to hiring managers or map into existing competency frameworks.", icon: "bar-chart-2", bullets: ["Role-based learning paths", "Executive summaries for sponsors"] }].forEach(function (x) { %>
+        <div class="flex h-full flex-col rounded-2xl border border-zinc-200 bg-zinc-50/80 p-7 shadow-sm md:p-8">
+          <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-zinc-200 bg-white text-primary">
+            <i data-feather="<%= x.icon %>" class="h-5 w-5"></i>
+          </div>
+          <p class="mt-4 text-xs font-semibold uppercase tracking-widest text-primary"><%= x.k %></p>
+          <p class="mt-3 flex-1 text-sm leading-relaxed text-zinc-600"><%= x.v %></p>
+          <ul class="mt-5 space-y-2 border-t border-zinc-200/80 pt-5 text-xs text-zinc-500">
+            <% x.bullets.forEach(function (b) { %>
+            <li class="flex gap-2"><i data-feather="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary"></i><%= b %></li>
+            <% }); %>
+          </ul>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-b border-zinc-200 py-16 md:py-24">
+    <div class="container">
+      <div class="mx-auto mb-12 max-w-3xl text-center">
+        <p class="inline-flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500">
+          <i data-feather="layout" class="h-4 w-4 text-primary/80"></i>
+          Programs
+        </p>
+        <h2 class="mt-2 text-3xl font-semibold text-zinc-900 md:text-4xl">Formats we deliver</h2>
+        <p class="mt-3 text-sm text-zinc-600">Pick public cohorts, private classes, or university-backed tracks—then layer certifications or custom scenarios.</p>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <% const tracks = [
+          { title: "Professional certifications", desc: "Focused prep and labs aligned to the skills employers verify in technical interviews—not empty certificate mills.", extras: ["Exam strategy sessions", "Pairing with mentors from our testing practice"], cta: "Request syllabus", href: "/contact" },
+          { title: "Academic partnerships", desc: "Semester-style tracks, capstones, and mentor reviews co-developed with faculty when programs need depth beyond a single elective.", extras: ["Guest lectures from incident leads", "Open-source lab bundles"], cta: "Academic inquiry", href: "/contact" },
+          { title: "Intensive bootcamps", desc: "Short, high-touch sprints for SOC triage, offensive fundamentals, and cloud security basics with daily facilitator feedback.", extras: ["Evening options for busy teams", "Post-boot skills survey"], cta: "See upcoming dates", href: "/contact" },
+          { title: "Corporate learning", desc: "Private classes for product engineers, IT, GRC, and executives—with scenarios sampled from your control vocabulary where appropriate.", extras: ["Tabletop overlays", "Recorded recap for LMS"], cta: "Shape a cohort", href: "/contact" },
+        ]; %>
+        <% tracks.forEach(function (t) { %>
+        <div class="group flex h-full flex-col rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm transition hover:border-red-200 hover:shadow-md md:p-9">
+          <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-zinc-100 bg-zinc-50 text-primary">
+            <i data-feather="book-open" class="h-6 w-6"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-zinc-900"><%= t.title %></h3>
+          <p class="mt-3 text-sm leading-relaxed text-zinc-600"><%= t.desc %></p>
+          <ul class="mt-5 space-y-1.5 text-xs text-zinc-500">
+            <% t.extras.forEach(function (ex) { %>
+            <li>• <%= ex %></li>
+            <% }); %>
+          </ul>
+          <a href="<%= t.href %>" class="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3"><%= t.cta %><i data-feather="arrow-right" class="h-4 w-4"></i></a>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gradient-to-b from-white to-zinc-50 py-14">
+    <div class="container grid gap-8 lg:grid-cols-2">
+      <div class="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm md:p-10">
+        <h2 class="text-xl font-semibold text-zinc-900">Who we train</h2>
+        <ul class="mt-6 space-y-4 text-sm text-zinc-600">
+          <li class="flex gap-3"><span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary"></span>SOC analysts moving from tier-1 triage to hunting and detection engineering.</li>
+          <li class="flex gap-3"><span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary"></span>Platform and product engineers hardening cloud and API surfaces before release.</li>
+          <li class="flex gap-3"><span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary"></span>Risk and IT leaders who need shared vocabulary with engineering—without drowning in jargon.</li>
+        </ul>
+      </div>
+      <div class="flex flex-col justify-center rounded-2xl border border-red-100 bg-gradient-to-br from-red-50 to-white p-8 shadow-sm md:p-10">
+        <h2 class="text-xl font-semibold text-zinc-900">Schedules</h2>
+        <p class="mt-3 text-sm leading-relaxed text-zinc-600">We publish open seats quarterly and schedule private cohorts around your release calendar. Ask for a geography-specific calendar if you operate across multiple hubs.</p>
+        <a href="/contact" class="btn-primary mt-8 inline-flex w-fit gap-2"><i data-feather="calendar" class="h-4 w-4"></i>Ask for a calendar</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer.html') %>
+<%- include('partials/foot-close.html') %>

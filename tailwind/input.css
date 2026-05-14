@@ -1,0 +1,350 @@
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "tailwindcss";
+
+@source "../views/**/*.html";
+
+:root {
+  --background: #fafafa;
+  --foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #dc2626;
+  --primary: #dc2626;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --accent: #fef2f2;
+  --accent-foreground: #b91c1c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --font-sans: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Slight global bump — scales text-sm, text-base, headings, etc. */
+html {
+  font-size: 106.25%;
+  font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer utilities {
+  .ring-offset-background {
+    --tw-ring-offset-color: var(--background);
+  }
+
+  /* Feather replaces <i data-feather> with <svg class="feather ..."> — keep stroke crisp at small sizes */
+  svg.feather {
+    flex-shrink: 0;
+  }
+}
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 1200px;
+}
+
+.hero-cyber {
+  background-color: #030303;
+  background-image:
+    radial-gradient(ellipse 100% 70% at 50% -12%, rgba(220, 38, 38, 0.34), transparent 55%),
+    radial-gradient(ellipse 50% 42% at 92% 12%, rgba(220, 38, 38, 0.16), transparent 52%),
+    linear-gradient(rgba(255, 255, 255, 0.034) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.034) 1px, transparent 1px),
+    linear-gradient(188deg, #0c0c0f 0%, #050506 38%, #020202 100%);
+  background-size: auto, auto, 76px 76px, 76px 76px, auto;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-md bg-primary px-7 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-900/40 transition hover:bg-red-600;
+}
+
+.btn-outline-hero {
+  @apply inline-flex items-center justify-center rounded-md border border-white/25 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/10;
+}
+
+/* Scroll / load fly-in — smooth ease-out, gentle travel */
+html.js .fly-target {
+  opacity: 0;
+  transform: translate3d(0, 1.125rem, 0);
+  backface-visibility: hidden;
+  transition:
+    opacity 0.88s cubic-bezier(0.16, 1, 0.3, 1) var(--fly-delay, 0ms),
+    transform 0.88s cubic-bezier(0.16, 1, 0.3, 1) var(--fly-delay, 0ms);
+}
+
+html.js .fly-target.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .fly-target {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Hero spirals — large Archimedean curves, very slow drift */
+.hero-cyber-spirals {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-cyber-spiral {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+}
+.hero-cyber-spiral--a {
+  width: min(125vmin, 920px);
+  height: min(125vmin, 920px);
+  right: max(-18%, -8rem);
+  top: 42%;
+  translate: 0 -50%;
+  opacity: 0.38;
+  animation: hero-cyber-spiral-spin 150s linear infinite;
+}
+.hero-cyber-spiral--b {
+  width: min(88vmin, 640px);
+  height: min(88vmin, 640px);
+  left: max(-22%, -10rem);
+  bottom: max(-8%, -4rem);
+  opacity: 0.26;
+  animation: hero-cyber-spiral-spin 96s linear infinite reverse;
+}
+@keyframes hero-cyber-spiral-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Home hero only — animated backdrop above flat zinc-950 */
+.home-hero-motion {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.home-hero-rings {
+  position: absolute;
+  right: max(1%, 0.25rem);
+  top: 50%;
+  width: min(46vmin, 360px);
+  height: min(46vmin, 360px);
+  translate: 12% -50%;
+  opacity: 0.55;
+}
+
+@media (min-width: 1024px) {
+  .home-hero-rings {
+    translate: 4% -50%;
+    width: min(50vmin, 400px);
+    height: min(50vmin, 400px);
+  }
+}
+
+.home-hero-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(248, 113, 113, 0.55);
+  animation: home-hero-ring-spin 52s linear infinite;
+  will-change: transform;
+}
+
+.home-hero-ring--outer {
+  inset: 0;
+}
+
+.home-hero-ring--inner {
+  inset: 14%;
+  border-color: rgba(252, 165, 165, 0.4);
+  animation-duration: 34s;
+  animation-direction: reverse;
+}
+
+@keyframes home-hero-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.home-hero-motion .hero-cyber-spiral--a {
+  opacity: 0.44;
+}
+.home-hero-motion .hero-cyber-spiral--b {
+  opacity: 0.32;
+}
+
+/* Home hero — subtle continuous “security ops” motion */
+.hero-cyber-scan {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-cyber-scan::after {
+  content: "";
+  position: absolute;
+  left: -15%;
+  right: -15%;
+  height: 18%;
+  top: -25%;
+  border-radius: 6px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(220, 38, 38, 0.05) 38%,
+    rgba(252, 165, 165, 0.1) 50%,
+    rgba(220, 38, 38, 0.05) 62%,
+    transparent 100%
+  );
+  filter: blur(8px);
+  animation: hero-cyber-scan 7s ease-in-out infinite;
+}
+@keyframes hero-cyber-scan {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(480%);
+    opacity: 0;
+  }
+}
+
+.hero-cyber-blob {
+  animation: hero-cyber-blob 12s ease-in-out infinite;
+}
+.hero-cyber-blob--2 {
+  animation-delay: -5s;
+  animation-duration: 14s;
+}
+@keyframes hero-cyber-blob {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.hero-cyber-dash path {
+  stroke-dasharray: 1.2 2;
+  animation: hero-cyber-dash 24s linear infinite;
+}
+.hero-cyber-dash path:nth-child(2) {
+  animation-duration: 28s;
+  animation-direction: reverse;
+}
+.hero-cyber-dash path:nth-child(3) {
+  animation-duration: 32s;
+}
+.hero-cyber-dash path:nth-child(4) {
+  animation-duration: 20s;
+  animation-direction: reverse;
+}
+@keyframes hero-cyber-dash {
+  to {
+    stroke-dashoffset: -80;
+  }
+}
+
+.hero-cyber-nodes {
+  animation: hero-cyber-nodes 6s ease-in-out infinite;
+}
+@keyframes hero-cyber-nodes {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.92;
+  }
+}
+
+.mask-linear-fade {
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.hero-cyber-ticker-track {
+  will-change: transform;
+  animation: hero-cyber-marquee 42s linear infinite;
+}
+@keyframes hero-cyber-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cyber-scan::after,
+  .hero-cyber-blob,
+  .hero-cyber-dash path,
+  .hero-cyber-nodes,
+  .hero-cyber-ticker-track,
+  .hero-cyber-spiral,
+  .home-hero-ring {
+    animation: none !important;
+  }
+  .hero-cyber-blob {
+    opacity: 0.85;
+  }
+  .hero-cyber-spiral--a,
+  .hero-cyber-spiral--b {
+    transform: rotate(18deg);
+    opacity: 0.28;
+  }
+  .home-hero-ring--outer {
+    transform: rotate(14deg);
+  }
+  .home-hero-ring--inner {
+    transform: rotate(-20deg);
+  }
+}
